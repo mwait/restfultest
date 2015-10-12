@@ -28,4 +28,5 @@
 			<type>jar</type>
 		</dependency>
 	</dependencies>
+	<packaging>war</packaging>
 </project>
