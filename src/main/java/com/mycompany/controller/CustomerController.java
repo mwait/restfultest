@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.Customer;
+import com.mycompany.exception.CustomerNotFoundException;
 
 @Controller
 @RequestMapping("/customers")
@@ -36,7 +37,7 @@ public class CustomerController {
 				return c;
 			}
 		}
-		return null;
+		throw new CustomerNotFoundException();
 	}
 	
 	@RequestMapping(value ="/{id}", method = RequestMethod.PUT)
@@ -59,9 +60,14 @@ public class CustomerController {
 			}
 		}
 		if(rCust==null){
-			//throw exception like customer not found ...
+			throw new CustomerNotFoundException();
 		} else { list.remove(rCust); }
 	}
+	
+	/**
+	 * W postmanie aby dodaæ { "id":1, "name":"Nazwa" }
+	 * @param customer
+	 */
 	
 	@RequestMapping(value="", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
